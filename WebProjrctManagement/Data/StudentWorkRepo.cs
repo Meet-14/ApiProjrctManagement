@@ -76,11 +76,11 @@ namespace WebProjrctManagement.Data
             return studentWork;
         }
 
-        public async Task<bool> InsertStudentWork(StudentWorkModel studentWork, IFormFile file)
+        public async Task<bool> InsertStudentWork(StudentWorkModel studentWork)
         {
             var uploadParams = new RawUploadParams
             {
-                File = new FileDescription(file.FileName, file.OpenReadStream()),
+                File = new FileDescription((studentWork.formFile).FileName, (studentWork.formFile).OpenReadStream()),
                 Folder = "user_uploads"
             };
 
@@ -183,6 +183,35 @@ namespace WebProjrctManagement.Data
 
             // Combine the folder and file name with extension
             return string.Join("/", segments.Skip(segments.Length - 2));
+        }
+
+        public List<StudentWorkModel> GetStudentWorkByStudentID(int StudentID)
+        {
+            var studentWorks = new List<StudentWorkModel>();    
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                SqlCommand command = new SqlCommand("PR_StudentWork_GetByStudentID", connection)
+                {
+                    CommandType = CommandType.StoredProcedure
+                };
+                command.Parameters.AddWithValue("@StudentID", StudentID);
+                connection.Open();
+                SqlDataReader reader = command.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    studentWorks.Add(new StudentWorkModel
+                    {
+                        StudentWorkID = Convert.ToInt32(reader["StudentWorkID"]),
+                        StudentID = Convert.ToInt32(reader["StudentID"]),
+                        StudentName = reader["StudentName"].ToString(),
+                        FileHeading = reader["FileHeading"].ToString(),
+                        FilePath = reader["FilePath"].ToString(),
+                        SubmittedDate = Convert.ToDateTime(reader["SubmittedDate"])
+                    });
+                }
+            }
+            return studentWorks;
         }
 
     }

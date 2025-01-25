@@ -8,8 +8,10 @@
 
         public string FileHeading { get; set; }
 
-        public string FilePath { get; set; }
+        public string? FilePath { get; set; }
 
         public DateTime? SubmittedDate { get; set; }
+
+        public IFormFile formFile { get; set; }
     }
 }

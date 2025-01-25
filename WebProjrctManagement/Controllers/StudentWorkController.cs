@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using WebProjrctManagement.Data;
 using WebProjrctManagement.Model;
 
@@ -34,16 +35,17 @@ namespace WebProjrctManagement.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> InsertStudentWork([FromForm] StudentWorkModel studentWork, IFormFile file)
+        public async Task<IActionResult> InsertStudentWork([FromForm] StudentWorkModel studentWork)
         {
-            if (studentWork == null || file == null || file.Length == 0)
+            if (studentWork == null || studentWork.formFile == null || studentWork.formFile.Length == 0)
             {
                 return BadRequest(new { Message = "Invalid input. Please provide valid student work data and a file." });
             }
-
+            Console.WriteLine($"Received File: {studentWork.formFile?.FileName}");
+            Console.WriteLine($"Received FileHeading: {studentWork.FileHeading}");
             try
             {
-                bool isInserted = await _studentWorkRepo.InsertStudentWork(studentWork, file);
+                bool isInserted = await _studentWorkRepo.InsertStudentWork(studentWork);
                 if (isInserted)
                 {
                     return Ok(new { Message = "Student work inserted successfully!" });
@@ -56,7 +58,6 @@ namespace WebProjrctManagement.Controllers
                 return StatusCode(500, new { Message = "An unexpected error occurred.", Error = ex.Message });
             }
         }
-
 
         [HttpPut("{id}")]
         public IActionResult UpdateStudentWork(int id, [FromBody] StudentWorkModel studentWork)
@@ -142,6 +143,15 @@ namespace WebProjrctManagement.Controllers
             }
         }
 
-
+        [HttpGet("Student/{id}")]
+        public IActionResult GetStudentWorkByStudentID(int id)
+        {
+            var studentWork = _studentWorkRepo.GetStudentWorkByStudentID(id);
+            if (studentWork == null)
+            {
+                return NotFound();
+            }
+            return Ok(studentWork);
+        }
     }
 }
