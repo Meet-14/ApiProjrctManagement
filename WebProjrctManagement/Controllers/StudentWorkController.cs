@@ -41,8 +41,12 @@ namespace WebProjrctManagement.Controllers
             {
                 return BadRequest(new { Message = "Invalid input. Please provide valid student work data and a file." });
             }
-            Console.WriteLine($"Received File: {studentWork.formFile?.FileName}");
-            Console.WriteLine($"Received FileHeading: {studentWork.FileHeading}");
+            if (!ModelState.IsValid)
+            {
+                var errors = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage).ToList();
+                return BadRequest(new { Message = "Model validation failed.", Errors = errors });
+            }
+
             try
             {
                 bool isInserted = await _studentWorkRepo.InsertStudentWork(studentWork);
