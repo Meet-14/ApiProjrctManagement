@@ -34,6 +34,8 @@ builder.Services.AddScoped<ProjectRepo>();
 builder.Services.AddScoped<MeetingRepo>();
 builder.Services.AddScoped<StudentProjectRepo>();
 builder.Services.AddScoped<StudentWorkRepo>();
+builder.Services.AddScoped<DashboardRepo>();
+
 
 
 var app = builder.Build();
