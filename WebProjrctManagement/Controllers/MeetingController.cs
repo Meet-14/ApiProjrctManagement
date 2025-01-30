@@ -88,5 +88,12 @@ namespace WebProjrctManagement.Controllers
             }
             return Ok(Meeting);
         }
+
+        [HttpGet("GetMeetingsByDateRange")]
+        public async Task<IActionResult> GetMeetingsByDateRange(DateTime fromDate, DateTime toDate)
+        {
+            var result = await _meetingRepo.GetMeetingsByDateRange(fromDate, toDate);
+            return Ok(result);
+        }
     }
 }

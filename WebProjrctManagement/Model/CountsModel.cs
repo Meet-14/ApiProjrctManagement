@@ -9,5 +9,9 @@
         public int Students { get; set; }
 
         public int StudentWork { get; set; }
+
+        public int Projects { get;  set; }
+
+        public int Faculty { get; set; }
     }
 }

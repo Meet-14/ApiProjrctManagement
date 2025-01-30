@@ -96,7 +96,9 @@ namespace WebProjrctManagement.Data
                         Meeting = Convert.ToInt32(reader["Meeting"]),
                         StudentProject = Convert.ToInt32(reader["StudentProject"]),
                         Students = Convert.ToInt32(reader["Students"]),
-                        StudentWork = Convert.ToInt32(reader["StudentWork"])
+                        StudentWork = Convert.ToInt32(reader["StudentWork"]),
+                        Projects = Convert.ToInt32(reader["Projects"]),
+                        Faculty = Convert.ToInt32(reader["Faculty"])
                     };
                 }
             }
