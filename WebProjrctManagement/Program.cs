@@ -35,6 +35,7 @@ builder.Services.AddScoped<MeetingRepo>();
 builder.Services.AddScoped<StudentProjectRepo>();
 builder.Services.AddScoped<StudentWorkRepo>();
 builder.Services.AddScoped<DashboardRepo>();
+builder.Services.AddScoped<StudentTaskRepo>();
 
 
 

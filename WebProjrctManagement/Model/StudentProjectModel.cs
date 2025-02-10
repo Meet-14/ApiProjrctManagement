@@ -12,5 +12,6 @@
         public string AcademicYear { get; set; }
         public DateTime StartingDate { get; set; }
         public int? MeetingsConducted { get; set; }
+        public int? TaskCount { get; set; }
     }
 }

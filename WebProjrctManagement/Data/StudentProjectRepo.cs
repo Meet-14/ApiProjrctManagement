@@ -43,7 +43,8 @@ namespace WebProjrctManagement.Data
                         FacultyName = reader["FacultyName"].ToString(),
                         AcademicYear = reader["AcademicYear"].ToString(),
                         StartingDate = Convert.ToDateTime(reader["StartingDate"]),
-                        MeetingsConducted = Convert.ToInt32(reader["MeetingsConducted"])
+                        MeetingsConducted = Convert.ToInt32(reader["MeetingsConducted"]),
+                        TaskCount = Convert.ToInt32(reader["TaskCount"])
                     });
                 }
             }
