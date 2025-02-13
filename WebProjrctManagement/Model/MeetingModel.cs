@@ -5,6 +5,7 @@
         public int? MeetingID { get; set; }
         public int StudentID { get; set; }
         public string? StudentName { get; set; }
+        public string? ImagePath { get; set; }
         public int FacultyID { get; set; }
         public string? FacultyName { get; set; }
         public int ProjectID { get; set; }

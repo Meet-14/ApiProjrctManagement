@@ -39,7 +39,8 @@ namespace WebProjrctManagement.Data
                         Enr_No = reader["Enr_No"].ToString(),
                         Email = reader["Email"].ToString(),
                         PhoneNo = reader["PhoneNo"].ToString(),
-                        Password = reader["Password"].ToString()
+                        Password = reader["Password"].ToString(),
+                        ImagePath = reader["ImagePath"].ToString()
                     });
 
                 }
@@ -89,6 +90,7 @@ namespace WebProjrctManagement.Data
                 command.Parameters.AddWithValue("@Email", student.Email);
                 command.Parameters.AddWithValue("@PhoneNo", student.PhoneNo);
                 command.Parameters.AddWithValue("@Password", student.Password);
+                command.Parameters.AddWithValue("@ImagePath",student.ImagePath);
 
                 connection.Open();
                 int rowsAffected = command.ExecuteNonQuery();
@@ -112,6 +114,7 @@ namespace WebProjrctManagement.Data
                 command.Parameters.AddWithValue("@Email", student.Email);
                 command.Parameters.AddWithValue("@PhoneNo", student.PhoneNo);
                 command.Parameters.AddWithValue("@Password", student.Password);
+                command.Parameters.AddWithValue("@ImagePath", student.ImagePath);
 
                 connection.Open();
                 int rowsAffected = command.ExecuteNonQuery();
@@ -193,9 +196,9 @@ namespace WebProjrctManagement.Data
             return students;
         }
 
-        public List<StudentInfoModel> GetStudentInfo(int studentID)
+        public StudentInfoModel GetStudentInfo(int studentID)
         {
-            var studentInfo = new List<StudentInfoModel>();
+            StudentInfoModel studentInfo = null;
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
                 SqlCommand command = new SqlCommand("PR_Get_Student_Project_Info", connection)
@@ -206,9 +209,9 @@ namespace WebProjrctManagement.Data
                 connection.Open();
                 SqlDataReader reader = command.ExecuteReader();
 
-                while (reader.Read())
+                if (reader.Read())
                 {
-                    studentInfo.Add(new StudentInfoModel
+                    studentInfo = new StudentInfoModel
                     {
                         StudentID = Convert.ToInt32(reader["StudentID"]),
                         StudentName = reader["StudentName"].ToString(),
@@ -216,7 +219,9 @@ namespace WebProjrctManagement.Data
                         FacultyName = reader["FacultyName"].ToString(),
                         ProjectID = Convert.ToInt32(reader["ProjectID"]),
                         ProjectDefinition = reader["ProjectDefinition"].ToString(),
-                    });
+                        ImagePath = reader["ImagePath"].ToString(),
+                        Email = reader["Email"].ToString()
+                    };
 
                 }
             }

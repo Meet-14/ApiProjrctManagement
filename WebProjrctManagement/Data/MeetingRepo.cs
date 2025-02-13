@@ -167,7 +167,8 @@ namespace WebProjrctManagement.Data
                         ProjectDefinition = reader["ProjectDefinition"].ToString(),
                         Date = Convert.ToDateTime(reader["Date"]),
                         Discussion = reader["Discussion"].ToString(),
-                        Remark = reader["Remark"].ToString()
+                        Remark = reader["Remark"].ToString(),
+                        ImagePath = reader["ImagePath"].ToString()
                     });
                 }
             }
