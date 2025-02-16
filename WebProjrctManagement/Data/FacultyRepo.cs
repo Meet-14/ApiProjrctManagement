@@ -131,7 +131,7 @@ namespace WebProjrctManagement.Data
             }
         }
 
-        public FacultyModel FacultyLogIN(string email, string password)
+        public FacultyModel FacultyLogIN(LogInModel logIn)
         {
             FacultyModel faculty = null;
             using (SqlConnection connection = new SqlConnection(_connectionString))
@@ -140,8 +140,8 @@ namespace WebProjrctManagement.Data
                 {
                     CommandType = CommandType.StoredProcedure
                 };
-                command.Parameters.AddWithValue("@Email", email);
-                command.Parameters.AddWithValue("@Password", password);
+                command.Parameters.AddWithValue("@Email", logIn.Username);
+                command.Parameters.AddWithValue("@Password", logIn.Password);
 
                 connection.Open();
                 SqlDataReader reader = command.ExecuteReader();

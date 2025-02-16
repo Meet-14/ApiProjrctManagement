@@ -71,6 +71,8 @@ namespace WebProjrctManagement.Data
                         Status = reader["Status"].ToString(),
                         AssignDate = Convert.ToDateTime(reader["AssignDate"]),
                         StudentProjectID = Convert.ToInt32(reader["StudentProjectID"]),
+                        StudentID = Convert.ToInt32(reader["StudentID"]),
+                        StudentName = reader["StudentName"].ToString(),
                     };
                 }
 

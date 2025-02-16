@@ -80,15 +80,14 @@ namespace WebProjrctManagement.Controllers
             return NoContent();
         }
 
-        [HttpGet("login/{email}/{password}")]
-        public IActionResult FacultyLogIN(string email, string password)
+        [HttpPost("login")]
+        public IActionResult FacultyLogIN([FromBody] LogInModel logIn)
         {
-            if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password))
+            if (logIn == null)
             {
                 return BadRequest(new { message = "Email and Password are required." });
             }
-
-            var faculty = _FacultyRepo.FacultyLogIN(email, password);
+            var faculty = _FacultyRepo.FacultyLogIN(logIn);
 
             if (faculty == null)
             {

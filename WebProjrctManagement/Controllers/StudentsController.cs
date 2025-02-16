@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using WebProjectManagement.Model;
 using WebProjrctManagement.Data;
+using WebProjrctManagement.Model;
 
 namespace WebProjrctManagement.Controllers
 {
@@ -79,15 +80,15 @@ namespace WebProjrctManagement.Controllers
             return NoContent();
         }
 
-        [HttpGet("login/{email}/{password}")]
-        public IActionResult StudentLogIN(string email, string password)
+        [HttpPost("login")]
+        public IActionResult StudentLogIN([FromBody] LogInModel logIn)
         {
-            if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password))
+            if (logIn == null)
             {
                 return BadRequest(new { message = "Email and Password are required." });
             }
 
-            var student = _studentsRepo.StudentLogIN(email, password);
+            var student = _studentsRepo.StudentLogIN(logIn);
 
             if (student == null)
             {
