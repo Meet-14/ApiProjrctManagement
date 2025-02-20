@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using WebProjrctManagement.Data;
 using WebProjrctManagement.Model;
@@ -7,6 +8,7 @@ namespace WebProjrctManagement.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class MeetingController : ControllerBase
     {
         public readonly MeetingRepo _meetingRepo;

@@ -1,8 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Data.SqlClient;
-using System.Data;
 using WebProjrctManagement.Data;
 using WebProjrctManagement.Model;
+using Microsoft.AspNetCore.Authorization; // Add this for authorization
 
 namespace WebProjrctManagement.Controllers
 {
@@ -17,6 +16,7 @@ namespace WebProjrctManagement.Controllers
             _FacultyRepo = FacultyRepo;
         }
         [HttpGet]
+        [Authorize]
         public IActionResult GetAllFaculty()
         {
             var Faculty = _FacultyRepo.GetFaculties();
@@ -24,6 +24,7 @@ namespace WebProjrctManagement.Controllers
         }
 
         [HttpGet("{id}")]
+        [Authorize]
         public IActionResult GetFacultyByID(int id)
         {
             var Faculty = _FacultyRepo.GetFacultyByID(id);
@@ -35,6 +36,7 @@ namespace WebProjrctManagement.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public IActionResult InsertFaculty([FromBody] FacultyModel faculty)
         {
             if (faculty == null)
@@ -52,6 +54,7 @@ namespace WebProjrctManagement.Controllers
         }
 
         [HttpPut("{id}")]
+        [Authorize]
         public IActionResult UpdateFaculty(int id, [FromBody] FacultyModel faculty)
         {
             if (faculty == null || id != faculty.FacultyID)
@@ -69,6 +72,7 @@ namespace WebProjrctManagement.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize]
         public IActionResult DeleteFaculty(int id)
         {
             var isDeleted = _FacultyRepo.DeleteFaculty(id);

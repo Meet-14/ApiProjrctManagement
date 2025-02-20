@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using WebProjrctManagement.Data;
 using WebProjrctManagement.Model;
 
@@ -6,6 +7,7 @@ namespace WebProjrctManagement.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class StudentProjectController : ControllerBase
     {
         private readonly StudentProjectRepo _studentProjectRepo;

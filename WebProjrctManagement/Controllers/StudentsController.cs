@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using WebProjectManagement.Model;
 using WebProjrctManagement.Data;
@@ -17,6 +18,7 @@ namespace WebProjrctManagement.Controllers
             _studentsRepo = studentsRepo;
         }
         [HttpGet]
+        [Authorize]
         public IActionResult GetAllStudents()
         {
             var students = _studentsRepo.GetStudents();
@@ -24,6 +26,7 @@ namespace WebProjrctManagement.Controllers
         }
 
         [HttpGet("{id}")]
+        [Authorize]
         public IActionResult GetStudentByID(int id)
         {
             var students = _studentsRepo.getStudentByID(id);
@@ -35,6 +38,7 @@ namespace WebProjrctManagement.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public IActionResult InsertStudent([FromBody] StudentsModel student)
         {
             if (student == null)
@@ -52,6 +56,7 @@ namespace WebProjrctManagement.Controllers
         }
 
         [HttpPut("{id}")]
+        [Authorize]
         public IActionResult UpdateStudent(int id, [FromBody] StudentsModel student)
         {
             if (student == null || id != student.StudentID)
@@ -69,6 +74,7 @@ namespace WebProjrctManagement.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize]
         public IActionResult DeleteStudent(int id)
         {
             var isDeleted = _studentsRepo.DeleteStudent(id);
@@ -99,7 +105,7 @@ namespace WebProjrctManagement.Controllers
         }
 
         [HttpGet("dropdown")]
-        public IActionResult FacultyDropDown()
+        public IActionResult StudentDropDown()
         {
             var student = _studentsRepo.StudentDropDown();
             return Ok(student);

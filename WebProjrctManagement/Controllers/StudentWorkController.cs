@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using WebProjrctManagement.Data;
 using WebProjrctManagement.Model;
@@ -17,6 +18,7 @@ namespace WebProjrctManagement.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public IActionResult GetAllStudentWorks()
         {
             var studentWorks = _studentWorkRepo.GetStudentWorks();
@@ -24,6 +26,7 @@ namespace WebProjrctManagement.Controllers
         }
 
         [HttpGet("{id}")]
+        [Authorize]
         public IActionResult GetStudentWorkByID(int id)
         {
             var studentWork = _studentWorkRepo.GetStudentWorkByID(id);
@@ -81,6 +84,7 @@ namespace WebProjrctManagement.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize]
         public async Task<IActionResult> DeleteStudentWorkAsync(int id)
         {
             try
@@ -101,6 +105,7 @@ namespace WebProjrctManagement.Controllers
         }
 
         [HttpGet("DownloadFile/{id}")]
+        [Authorize]
         public IActionResult DownloadFile(int id)
         {
             var studentWork = _studentWorkRepo.GetStudentWorkByID(id);
@@ -148,6 +153,7 @@ namespace WebProjrctManagement.Controllers
         }
 
         [HttpGet("Student/{id}")]
+        [Authorize]
         public IActionResult GetStudentWorkByStudentID(int id)
         {
             var studentWork = _studentWorkRepo.GetStudentWorkByStudentID(id);
